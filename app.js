@@ -45,28 +45,16 @@ app.get('/', (req, res, next) => {
 
 app.post('/', (req, res, next) => {
     const json = req.body.article;
+    const lead_art = JSON.stringify(json.lead_art)
+    const authors = JSON.stringify(json.authors)
     connection.query(
-        (error, results, fields) => {
-            if (error) {
-                console.log(error)
-                next();
-            } else {
-                results = JSON.parse(JSON.stringify(results))[0][sql]
-                const lead_art = JSON.stringify(json.lead_art)
-                const authors = JSON.stringify(json.authors)
-                if (results == 0) {
-                    connection.query(
-                        "INSERT INTO stories (id,slug,title,dek,published_date,canonical_url,word_count,tags,embeds,lead_art,authors) VALUES('"+json.id+"', '"+json.slug+"', '"+json.title+"', '"+json.dek+"', '"+json.published_date+"', '"+json.canonical_url+"', '"+json.word_count+"', '"+json.tags+"', '"+json.embeds+"', '"+lead_art+"', '"+authors+"');"
-                        , (error, results, fields) => {
-                        if (error) {
-                            console.log(error)
-                            next();
-                        } else {
-                            res.end(JSON.stringify(results));
-                        }
-                    })
-                }
-            }
+        "INSERT INTO stories (id,slug,title,dek,published_date,canonical_url,word_count,tags,embeds,lead_art,authors) VALUES('"+json.id+"', '"+json.slug+"', '"+json.title+"', '"+json.dek+"', '"+json.published_date+"', '"+json.canonical_url+"', '"+json.word_count+"', '"+json.tags+"', '"+json.embeds+"', '"+lead_art+"', '"+authors+"');"
+        , (error, results, fields) => {
+        if (error) {
+            console.log(error)
+            next();
+        } else {
+            res.end(JSON.stringify(results));
         }
-    )
+    })
 })
