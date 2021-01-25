@@ -8,7 +8,8 @@
 4. Can check stories table directly with MySQL, or make a GET request to http://localhost:3000/ to see a list of all articles currently in the database.
 
 
-Database Schema:
+
+Database Schema?:
 
   Since the only thing on the top-most level of the JSON object is "article", there didn't seem to be much point keeping it.
   So when inserting the entry in the database, I decided to remove the top level.
